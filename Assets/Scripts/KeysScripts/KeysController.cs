@@ -1,23 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class KeysController : MonoBehaviour
 {
     [SerializeField] private List<Key> keysPrefab;
 
+    [SerializeField] private GameObject keyUI;
+    [SerializeField] private GameObject canvasUI;
+    [SerializeField] private int numberOfElements = 5;
+    [SerializeField] private float spacing = 50f;
+
+    private GameObject[] objects;
+    private int currentIndex = 0;
     private void Start()
     {
         keysPrefab = new List<Key>(FindObjectsOfType<Key>());
-        //ReloadList();
-    }
+        objects = new GameObject[keysPrefab.Count];
 
-    //public void ReloadList()
-    //{
-    //    keysPrefab.Clear();
-    //    keysPrefab = new List<Key>(FindObjectsOfType<Key>());
-    //    Debug.Log("Reload list");
-    //}
+        for (int i = 0; i < keysPrefab.Count; i++)
+        {
+            Vector3 spawnPosition = transform.position + new Vector3(75 + i * spacing, 75f, 0f);
+            GameObject uiElement = Instantiate(keyUI, spawnPosition, Quaternion.identity);
+            objects[i] = uiElement;
+            uiElement.transform.SetParent(canvasUI.transform);
+        }
+    }
 
     private void Update()
     {
@@ -30,6 +39,30 @@ public class KeysController : MonoBehaviour
         if (keysPrefab.Count == 0)
         {
             Debug.Log("Вы собрали все ключи!");
+        }
+    }
+
+    public void CollectKey()
+    {
+        ChangeColor(currentIndex);
+
+        currentIndex++;
+
+        if (currentIndex >= objects.Length)
+        {
+            currentIndex = 0;
+        }
+    }
+
+    private void ChangeColor(int index)
+    {
+        if (index >= 0 && index < objects.Length)
+        {
+            Image img = objects[index].GetComponent<Image>();
+            if (img != null)
+            {
+                img.color = new Color(0.7f, 0.7f, 0.7f, 0.7f);
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ public class Key : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            //FindObjectOfType<KeysController>().ReloadList();
+            FindObjectOfType<KeysController>().CollectKey();
             Destroy(gameObject);
         }
     }
