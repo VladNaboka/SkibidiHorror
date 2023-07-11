@@ -5,12 +5,11 @@ using UnityEngine.UI;
 
 public class KeysController : MonoBehaviour
 {
-    [SerializeField] private List<Key> keysPrefab;
+    private List<Key> keysPrefab;
 
     [SerializeField] private GameObject keyUI;
     [SerializeField] private GameObject canvasUI;
-    [SerializeField] private int numberOfElements = 5;
-    [SerializeField] private float spacing = 50f;
+    private float spacing = 150f;
 
     private GameObject[] objects;
     private int currentIndex = 0;
@@ -61,7 +60,7 @@ public class KeysController : MonoBehaviour
             Image img = objects[index].GetComponent<Image>();
             if (img != null)
             {
-                img.color = new Color(0.7f, 0.7f, 0.7f, 0.7f);
+                img.color = Color.white;
             }
         }
     }
