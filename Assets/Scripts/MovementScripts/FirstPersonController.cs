@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,17 +7,43 @@ public class FirstPersonController : MonoBehaviour
 {
     public bool CanMove { get; private set; } = true;
     private bool _isSprinting => _canSprint && Input.GetKey(_sprintKey);
+    private bool _shouldJump => Input.GetKeyDown(_jumpKey) && _characterController.isGrounded;
 
     [Header("Functional Options")]
     [SerializeField] private bool _canSprint = true;
+    [SerializeField] private bool _useStamina = true;
+    [SerializeField] private bool _canJump = true;
+    [SerializeField] private bool _canUseHeadBob = true;
 
     [Header("Controls")]
     [SerializeField] private KeyCode _sprintKey = KeyCode.LeftShift;
+    [SerializeField] private KeyCode _jumpKey = KeyCode.Space;
 
     [Header("Movement Parametrs")]
     [SerializeField] private float _movementSpeed = 3.0f;
     [SerializeField] private float _sprintSpeed = 6.0f;
+
+    [Header("Jumping Parametrs")]
+    [SerializeField] private float _jumpForce = 8.0f;
     [SerializeField] private float _gravity = 30.0f;
+
+    [Header("Headbob Parametrs")]
+    [SerializeField] private float _walkBobSpeed = 14f;
+    [SerializeField] private float _walkBobAmount = 0.05f;
+    [SerializeField] private float _sprintBobSpeed = 18f;
+    [SerializeField] private float _sprintBobAmount = 0.11f;
+    private float _defaultYPos = 0;
+    private float _timer;
+
+    [Header("Stamina Parameters")]
+    [SerializeField] private float _maxStamina = 100.0f;
+    [SerializeField] private float _staminaUseMultiplier = 5.0f;
+    [SerializeField] private float _timeBeforeRegen = 3.0f;
+    [SerializeField] private float _staminaValueIncrement = 2.0f;
+    [SerializeField] private float _staminaTimeIncrement = 0.1f;
+    private float _currentStamina;
+    private Coroutine _regenStamina;
+    public static Action<float> OnStaminaChange;
 
     [Header("Camera Parametrs")]
     [SerializeField, Range(1, 10)] private float _cameraSpeedX = 2.0f;
@@ -36,8 +63,11 @@ public class FirstPersonController : MonoBehaviour
     {
         _playerCamera = GetComponentInChildren<Camera>();
         _characterController = GetComponent<CharacterController>();
+        _defaultYPos = _playerCamera.transform.localPosition.y;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        _currentStamina = _maxStamina;
     }
     private void Update()
     {
@@ -45,7 +75,19 @@ public class FirstPersonController : MonoBehaviour
         {
             HandleMovementInput();
             HandleMouseLook();
+
+            if(_canJump)
+                HandleJump();
+
+            if (_canUseHeadBob)
+                HandleHeadBob();
+
             ApplyFinalMovements();
+        }
+
+        if (_useStamina)
+        {
+            HandleStamina();
         }
     }
 
@@ -75,5 +117,77 @@ public class FirstPersonController : MonoBehaviour
         }
 
         _characterController.Move(_moveDirection * Time.deltaTime);
+    }
+    private void HandleJump()
+    {
+        if(_shouldJump)
+        {
+            _moveDirection.y = _jumpForce;
+        }
+    }
+    private void HandleHeadBob()
+    {
+        if (!_characterController.isGrounded) return;
+
+        if(Mathf.Abs(_moveDirection.x) > 0.1f || Mathf.Abs(_moveDirection.z) > 0.1f)
+        {
+            _timer += Time.deltaTime * (_isSprinting ? _sprintBobSpeed : _walkBobSpeed);
+            _playerCamera.transform.localPosition = new Vector3(
+                _playerCamera.transform.localPosition.x,
+                _defaultYPos + Mathf.Sin(_timer) * (_isSprinting ? _sprintBobAmount : _walkBobAmount),
+                _playerCamera.transform.localPosition.z);
+        }
+    }
+    private void HandleStamina()
+    {
+        if(_isSprinting && _currentInput != Vector2.zero)
+        {
+            if(_regenStamina != null)
+            {
+                StopCoroutine(_regenStamina);
+                _regenStamina = null;
+            }
+            _currentStamina -= _staminaUseMultiplier * Time.deltaTime;
+
+            if(_currentStamina < 0)
+            {
+                _currentStamina = 0;
+            }
+
+            OnStaminaChange?.Invoke(_currentStamina);
+
+            if(_currentStamina <= 0)
+            {
+                _canSprint = false;
+            }
+        }
+
+        if(!_isSprinting && _currentStamina < _maxStamina && _regenStamina == null)
+        {
+            _regenStamina = StartCoroutine(RegenerateStamina());
+        }
+    }
+    private IEnumerator RegenerateStamina()
+    {
+        yield return new WaitForSeconds(_timeBeforeRegen);
+        WaitForSeconds timeToWait = new WaitForSeconds(_staminaTimeIncrement);
+        while(_currentStamina < _maxStamina)
+        {
+            if(_currentStamina > 0)
+            {
+                _canSprint = true;
+            }
+            if(_currentStamina > _maxStamina)
+            {
+                _currentStamina = _maxStamina;
+            }
+            _currentStamina += _staminaValueIncrement;
+
+            OnStaminaChange?.Invoke(_currentStamina);
+
+            yield return timeToWait;
+
+            _regenStamina = null;
+        }
     }
 }
