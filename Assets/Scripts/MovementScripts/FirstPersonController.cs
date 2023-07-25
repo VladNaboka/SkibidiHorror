@@ -14,6 +14,7 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private bool _useStamina = true;
     [SerializeField] private bool _canJump = true;
     [SerializeField] private bool _canUseHeadBob = true;
+    [SerializeField] private bool _useFootsteps = true;
 
     [Header("Controls")]
     [SerializeField] private KeyCode _sprintKey = KeyCode.LeftShift;
@@ -51,6 +52,14 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField, Range(1, 100)] private float _upCameraLimit = 80.0f;
     [SerializeField, Range(1, 100)] private float _downCameraLimit = 80.0f;
 
+    [Header("Footsteps Parametrs")]
+    [SerializeField] private float _baseStepSpeed = 0.5f;
+    [SerializeField] private float _sprintStepMultipler = 0.6f;
+    [SerializeField] private AudioSource _footstepAudioSource = default;
+    [SerializeField] private AudioClip[] _stepClips = default;
+    private float _footstepTimer = 0f;
+    private float _currentOffset => _isSprinting ? _baseStepSpeed * _sprintStepMultipler : _baseStepSpeed;
+
     private Camera _playerCamera;
     private CharacterController _characterController;
 
@@ -82,6 +91,9 @@ public class FirstPersonController : MonoBehaviour
             if (_canUseHeadBob)
                 HandleHeadBob();
 
+            if (_useFootsteps)
+                HandleFootsteps();
+
             ApplyFinalMovements();
         }
 
@@ -101,7 +113,6 @@ public class FirstPersonController : MonoBehaviour
             + (transform.TransformDirection(Vector3.right)* _currentInput.y);
         _moveDirection.y = moveDirectionY;
     }
-
     private void HandleMouseLook()
     {
         _rotationX -= Input.GetAxis("Mouse Y") * _cameraSpeedY;
@@ -188,6 +199,19 @@ public class FirstPersonController : MonoBehaviour
             yield return timeToWait;
 
             _regenStamina = null;
+        }
+    }
+    private void HandleFootsteps()
+    {
+        if (!_characterController.isGrounded) return;
+        if (_currentInput == Vector2.zero) return;
+
+        _footstepTimer -= Time.deltaTime;
+        
+        if(_footstepTimer <= 0)
+        {
+            _footstepAudioSource.PlayOneShot(_stepClips[UnityEngine.Random.Range(0, _stepClips.Length -1)]);
+            _footstepTimer = _currentOffset;
         }
     }
 }

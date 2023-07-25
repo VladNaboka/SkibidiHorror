@@ -117,10 +117,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canSprint: 1
+  _useStamina: 1
+  _canJump: 1
+  _canUseHeadBob: 1
   _sprintKey: 304
+  _jumpKey: 32
   _movementSpeed: 3
   _sprintSpeed: 6
+  _jumpForce: 8
   _gravity: 30
+  _walkBobSpeed: 14
+  _walkBobAmount: 0.05
+  _sprintBobSpeed: 18
+  _sprintBobAmount: 0.11
+  _maxStamina: 100
+  _staminaUseMultiplier: 30
+  _timeBeforeRegen: 2
+  _staminaValueIncrement: 1
+  _staminaTimeIncrement: 0.01
   _cameraSpeedX: 2
   _cameraSpeedY: 2
   _upCameraLimit: 80
