@@ -6,8 +6,8 @@ using UnityEngine;
 public class FPSMobile : MonoBehaviour
 {
     public bool CanMove { get; private set; } = true;
-    private bool _isSprinting => _canSprint && Input.GetKey(_sprintKey);
-    private bool _shouldJump => Input.GetKeyDown(_jumpKey) && _characterController.isGrounded;
+    private bool _isSprinting => _canSprint && _sprintButton;
+    private bool _shouldJump => _characterController.isGrounded;
 
     [Header("Functional Options")]
     [SerializeField] private bool _canSprint = true;
@@ -17,8 +17,7 @@ public class FPSMobile : MonoBehaviour
     [SerializeField] private bool _useFootsteps = true;
 
     [Header("Controls")]
-    [SerializeField] private KeyCode _sprintKey = KeyCode.LeftShift;
-    [SerializeField] private KeyCode _jumpKey = KeyCode.Space;
+    [SerializeField] private bool _sprintButton;
 
     [Header("Joystick Controls")]
     [SerializeField] private FixedJoystick _joystick;
@@ -52,10 +51,12 @@ public class FPSMobile : MonoBehaviour
     public static Action<float> OnStaminaChange;
 
     [Header("Camera Parametrs")]
-    [SerializeField, Range(1, 10)] private float _cameraSpeedX = 2.0f;
-    [SerializeField, Range(1, 10)] private float _cameraSpeedY = 2.0f;
-    [SerializeField, Range(1, 100)] private float _upCameraLimit = 80.0f;
-    [SerializeField, Range(1, 100)] private float _downCameraLimit = 80.0f;
+    [SerializeField] private Transform _playerCamera;
+    [SerializeField] private float _cameraSensitivity;
+    private int _rightFingerID;
+    private float _halfScreenWidth;
+    private Vector2 _lookInput;
+    private float _cameraPitch;
 
     [Header("Footsteps Parametrs")]
     [SerializeField] private float _baseStepSpeed = 0.5f;
@@ -65,7 +66,7 @@ public class FPSMobile : MonoBehaviour
     private float _footstepTimer = 0f;
     private float _currentOffset => _isSprinting ? _baseStepSpeed * _sprintStepMultipler : _baseStepSpeed;
 
-    private Camera _playerCamera;
+
     private CharacterController _characterController;
 
     private Vector3 _moveDirection;
@@ -75,12 +76,11 @@ public class FPSMobile : MonoBehaviour
 
     private void Awake()
     {
-        _playerCamera = GetComponentInChildren<Camera>();
         _characterController = GetComponent<CharacterController>();
-        _defaultYPos = _playerCamera.transform.localPosition.y;
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
-
+        _rightFingerID = -1;
+        _halfScreenWidth = Screen.width / 2;
         _currentStamina = _maxStamina;
     }
     private void Update()
@@ -90,14 +90,18 @@ public class FPSMobile : MonoBehaviour
             HandleMovementInput();
             //HandleMouseLook();
 
-            if (_canJump)
-                HandleJump();
-
+            //if (_canJump)
+            //    HandleJump();
+            GetTouchInput();
+            if(_rightFingerID != 1)
+            {
+                LookAround();
+            }
             if (_canUseHeadBob)
                 HandleHeadBob();
 
-            //if (_useFootsteps)
-            //    HandleFootsteps();
+            if (_useFootsteps)
+                HandleFootsteps();
 
             ApplyFinalMovements();
         }
@@ -120,6 +124,61 @@ public class FPSMobile : MonoBehaviour
         _moveDirection = (transform.TransformDirection(Vector3.forward) * _currentInput.x)
             + (transform.TransformDirection(Vector3.right) * _currentInput.y);
         _moveDirection.y = moveDirectionY;
+    }
+
+    void GetTouchInput()
+    {
+        // Iterate through all the detected touches
+        for (int i = 0; i < Input.touchCount; i++)
+        {
+
+            Touch t = Input.GetTouch(i);
+
+            // Check each touch's phase
+            switch (t.phase)
+            {
+                case TouchPhase.Began:
+                    if (t.position.x > _halfScreenWidth && _rightFingerID == -1)
+                    {
+                        // Start tracking the rightfinger if it was not previously being tracked
+                        _rightFingerID = t.fingerId;
+                    }
+
+                    break;
+                case TouchPhase.Ended:
+                case TouchPhase.Canceled:
+                    if (t.fingerId == _rightFingerID)
+                    {
+                        // Stop tracking the right finger
+                        _rightFingerID = -1;
+                        Debug.Log("Stopped tracking right finger");
+                    }
+
+                    break;
+                case TouchPhase.Moved:
+
+                    // Get input for looking around
+                    if (t.fingerId == _rightFingerID)
+                    {
+                        _lookInput = t.deltaPosition * _cameraSensitivity * Time.deltaTime;
+                    }
+                    break;
+                case TouchPhase.Stationary:
+                    // Set the look input to zero if the finger is still
+                    if (t.fingerId == _rightFingerID)
+                    {
+                        _lookInput = Vector2.zero;
+                    }
+                    break;
+            }
+        }
+    }
+    private void LookAround()
+    {
+        _cameraPitch = Mathf.Clamp(_cameraPitch - _lookInput.y, -80f, 80f);
+        _playerCamera.localRotation = Quaternion.Euler(_cameraPitch, 0, 0);
+
+        transform.Rotate(transform.up, _lookInput.x);
     }
     //private void HandleMouseLook()
     //{
@@ -209,17 +268,25 @@ public class FPSMobile : MonoBehaviour
             _regenStamina = null;
         }
     }
-    //private void HandleFootsteps()
-    //{
-    //    if (!_characterController.isGrounded) return;
-    //    if (_currentInput == Vector2.zero) return;
+    private void HandleFootsteps()
+    {
+        if (!_characterController.isGrounded) return;
+        if (_currentInput == Vector2.zero) return;
 
-    //    _footstepTimer -= Time.deltaTime;
+        _footstepTimer -= Time.deltaTime;
 
-    //    if (_footstepTimer <= 0)
-    //    {
-    //        _footstepAudioSource.PlayOneShot(_stepClips[UnityEngine.Random.Range(0, _stepClips.Length - 1)]);
-    //        _footstepTimer = _currentOffset;
-    //    }
-    //}
+        if (_footstepTimer <= 0)
+        {
+            _footstepAudioSource.PlayOneShot(_stepClips[UnityEngine.Random.Range(0, _stepClips.Length - 1)]);
+            _footstepTimer = _currentOffset;
+        }
+    }
+    public void JumpButton()
+    {
+        HandleJump();
+    }
+    public void SprintButton(bool _isPressed)
+    {
+        _sprintButton = _isPressed;
+    }
 }
