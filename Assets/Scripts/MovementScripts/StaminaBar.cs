@@ -12,11 +12,13 @@ public class StaminaBar : MonoBehaviour
     private void OnEnable()
     {
         FirstPersonController.OnStaminaChange += UpdateValue;
+        FPSMobile.OnStaminaChange += UpdateValue;
     }
 
     private void OnDisable()
     {
         FirstPersonController.OnStaminaChange -= UpdateValue;
+        FPSMobile.OnStaminaChange -= UpdateValue;
     }
     private void Awake()
     {

@@ -124,9 +124,9 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &60226700 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3940926520867989795, guid: ab56871a8ff0fe4468accbf3e12bcb4b,
+--- !u!1 &65938277 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3940926519853057442, guid: ab56871a8ff0fe4468accbf3e12bcb4b,
     type: 3}
   m_PrefabInstance: {fileID: 3940926519860012743}
   m_PrefabAsset: {fileID: 0}
@@ -478,6 +478,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Fixed Joystick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252,
+        type: 3}
+      propertyPath: snapX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252,
+        type: 3}
+      propertyPath: snapY
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
@@ -1103,6 +1113,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1147965412 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3940926520867989795, guid: ab56871a8ff0fe4468accbf3e12bcb4b,
+    type: 3}
+  m_PrefabInstance: {fileID: 3940926519860012743}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1442453867
 GameObject:
   m_ObjectHideFlags: 0
@@ -1368,19 +1384,13 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!1 &1613692345 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3940926519853057442, guid: ab56871a8ff0fe4468accbf3e12bcb4b,
-    type: 3}
-  m_PrefabInstance: {fileID: 3940926519860012743}
-  m_PrefabAsset: {fileID: 0}
 --- !u!82 &1613692351
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1613692345}
+  m_GameObject: {fileID: 65938277}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -1476,7 +1486,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1613692345}
+  m_GameObject: {fileID: 65938277}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85cb163cb8afe844ba36e89aba1173cf, type: 3}
@@ -1502,7 +1512,7 @@ MonoBehaviour:
   _timeBeforeRegen: 3
   _staminaValueIncrement: 2
   _staminaTimeIncrement: 0.1
-  _playerCamera: {fileID: 60226700}
+  _playerCamera: {fileID: 1147965412}
   _cameraSensitivity: 2
   _baseStepSpeed: 0.5
   _sprintStepMultipler: 0.6

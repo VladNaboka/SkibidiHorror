@@ -76,6 +76,9 @@ public class FPSMobile : MonoBehaviour
 
     private void Awake()
     {
+        if(!this.enabled)
+        return;
+
         _characterController = GetComponent<CharacterController>();
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
@@ -173,6 +176,7 @@ public class FPSMobile : MonoBehaviour
             }
         }
     }
+
     private void LookAround()
     {
         _cameraPitch = Mathf.Clamp(_cameraPitch - _lookInput.y, -80f, 80f);
@@ -180,6 +184,7 @@ public class FPSMobile : MonoBehaviour
 
         transform.Rotate(transform.up, _lookInput.x);
     }
+
     //private void HandleMouseLook()
     //{
     //    _rotationX -= Input.GetAxis("Mouse Y") * _cameraSpeedY;
@@ -196,6 +201,7 @@ public class FPSMobile : MonoBehaviour
 
         _characterController.Move(_moveDirection * Time.deltaTime);
     }
+
     private void HandleJump()
     {
         if (_shouldJump)
@@ -203,6 +209,7 @@ public class FPSMobile : MonoBehaviour
             _moveDirection.y = _jumpForce;
         }
     }
+
     private void HandleHeadBob()
     {
         if (!_characterController.isGrounded) return;
@@ -216,6 +223,7 @@ public class FPSMobile : MonoBehaviour
                 _playerCamera.transform.localPosition.z);
         }
     }
+
     private void HandleStamina()
     {
         if (_isSprinting && _currentInput != Vector2.zero)
@@ -245,6 +253,7 @@ public class FPSMobile : MonoBehaviour
             _regenStamina = StartCoroutine(RegenerateStamina());
         }
     }
+
     private IEnumerator RegenerateStamina()
     {
         yield return new WaitForSeconds(_timeBeforeRegen);
@@ -268,6 +277,7 @@ public class FPSMobile : MonoBehaviour
             _regenStamina = null;
         }
     }
+
     private void HandleFootsteps()
     {
         if (!_characterController.isGrounded) return;
@@ -281,10 +291,12 @@ public class FPSMobile : MonoBehaviour
             _footstepTimer = _currentOffset;
         }
     }
+
     public void JumpButton()
     {
         HandleJump();
     }
+
     public void SprintButton(bool _isPressed)
     {
         _sprintButton = _isPressed;

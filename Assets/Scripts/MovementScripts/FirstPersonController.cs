@@ -70,6 +70,9 @@ public class FirstPersonController : MonoBehaviour
 
     private void Awake()
     {
+        if(!this.enabled)
+        return;
+
         _playerCamera = GetComponentInChildren<Camera>();
         _characterController = GetComponent<CharacterController>();
         _defaultYPos = _playerCamera.transform.localPosition.y;
@@ -78,6 +81,7 @@ public class FirstPersonController : MonoBehaviour
 
         _currentStamina = _maxStamina;
     }
+
     private void Update()
     {
         if (CanMove)
@@ -113,6 +117,7 @@ public class FirstPersonController : MonoBehaviour
             + (transform.TransformDirection(Vector3.right)* _currentInput.y);
         _moveDirection.y = moveDirectionY;
     }
+
     private void HandleMouseLook()
     {
         _rotationX -= Input.GetAxis("Mouse Y") * _cameraSpeedY;
@@ -120,6 +125,7 @@ public class FirstPersonController : MonoBehaviour
         _playerCamera.transform.localRotation = Quaternion.Euler(_rotationX, 0, 0);
         transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * _cameraSpeedX, 0);
     }
+
     private void ApplyFinalMovements()
     {
         if(!_characterController.isGrounded)
@@ -129,6 +135,7 @@ public class FirstPersonController : MonoBehaviour
 
         _characterController.Move(_moveDirection * Time.deltaTime);
     }
+
     private void HandleJump()
     {
         if(_shouldJump)
@@ -136,6 +143,7 @@ public class FirstPersonController : MonoBehaviour
             _moveDirection.y = _jumpForce;
         }
     }
+
     private void HandleHeadBob()
     {
         if (!_characterController.isGrounded) return;
@@ -149,6 +157,7 @@ public class FirstPersonController : MonoBehaviour
                 _playerCamera.transform.localPosition.z);
         }
     }
+
     private void HandleStamina()
     {
         if(_isSprinting && _currentInput != Vector2.zero)
@@ -201,6 +210,7 @@ public class FirstPersonController : MonoBehaviour
             _regenStamina = null;
         }
     }
+
     private void HandleFootsteps()
     {
         if (!_characterController.isGrounded) return;

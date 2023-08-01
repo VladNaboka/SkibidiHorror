@@ -120,6 +120,7 @@ MonoBehaviour:
   _useStamina: 1
   _canJump: 1
   _canUseHeadBob: 1
+  _useFootsteps: 1
   _sprintKey: 304
   _jumpKey: 32
   _movementSpeed: 3
@@ -139,6 +140,10 @@ MonoBehaviour:
   _cameraSpeedY: 2
   _upCameraLimit: 80
   _downCameraLimit: 80
+  _baseStepSpeed: 0.5
+  _sprintStepMultipler: 0.6
+  _footstepAudioSource: {fileID: 0}
+  _stepClips: []
 --- !u!1 &3940926520867989798
 GameObject:
   m_ObjectHideFlags: 0
