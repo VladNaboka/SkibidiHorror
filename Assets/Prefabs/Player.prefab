@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 3940926519853057442}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.15, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3940926520867989795}
@@ -125,8 +125,8 @@ MonoBehaviour:
   _useFootsteps: 1
   _sprintKey: 304
   _jumpKey: 32
-  _movementSpeed: 3
-  _sprintSpeed: 6
+  _movementSpeed: 6
+  _sprintSpeed: 14
   _jumpForce: 8
   _gravity: 30
   _walkBobSpeed: 14
@@ -265,8 +265,8 @@ MonoBehaviour:
   _useFootsteps: 1
   _sprintButton: 0
   _joystick: {fileID: 0}
-  _movementSpeed: 3
-  _sprintSpeed: 6
+  _movementSpeed: 6
+  _sprintSpeed: 14
   _jumpForce: 8
   _gravity: 30
   _walkBobSpeed: 14
@@ -274,10 +274,10 @@ MonoBehaviour:
   _sprintBobSpeed: 18
   _sprintBobAmount: 0.11
   _maxStamina: 100
-  _staminaUseMultiplier: 5
-  _timeBeforeRegen: 3
-  _staminaValueIncrement: 2
-  _staminaTimeIncrement: 0.1
+  _staminaUseMultiplier: 30
+  _timeBeforeRegen: 2
+  _staminaValueIncrement: 1
+  _staminaTimeIncrement: 0.01
   _playerCamera: {fileID: 3940926520867989795}
   _cameraSensitivity: 2
   _baseStepSpeed: 0.5
