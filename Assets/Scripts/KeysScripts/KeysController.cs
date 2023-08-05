@@ -9,10 +9,10 @@ public class KeysController : MonoBehaviour
 
     [SerializeField] private GameObject keyUI;
     [SerializeField] private GameObject canvasUI;
-    private float spacing = 150f;
+    private float spacing = 120f;
 
     private GameObject[] objects;
-    private int currentIndex = 0;
+    public int currentIndex = 0;
     private void Start()
     {
         keysPrefab = new List<Key>(FindObjectsOfType<Key>());
@@ -20,7 +20,7 @@ public class KeysController : MonoBehaviour
 
         for (int i = 0; i < keysPrefab.Count; i++)
         {
-            Vector3 spawnPosition = transform.position + new Vector3(75 + i * spacing, 75f, 0f);
+            Vector3 spawnPosition = transform.position + new Vector3(795 + i * spacing, 475f, 0f);
             GameObject uiElement = Instantiate(keyUI, spawnPosition, Quaternion.identity);
             objects[i] = uiElement;
             uiElement.transform.SetParent(canvasUI.transform);
