@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine.AI;
 
 public class MobController : MonoBehaviour
 {
+    [SerializeField] private SmoothLookAt _smoothLookAt;
     [SerializeField] private GameObject _playerGameObject;
     [SerializeField] private NavMeshAgent _navMeshAgent;
     [SerializeField] private List<Transform> _waypoints = new List<Transform>();
@@ -17,8 +19,9 @@ public class MobController : MonoBehaviour
     private int _waypointIndex;
     private bool _isPatrolCoroutineRunning = false;
     private bool _isChasingPlayer = false;
-    
-        
+
+    public event Action<Transform> OnPlayerCaught;
+
     private void Start()
     {
         _navMeshAgent.speed = _agentBaseSpeed;
@@ -29,11 +32,6 @@ public class MobController : MonoBehaviour
     {
         if(!_isChasingPlayer)
         StartPatrol();
-        else
-        StartChase();
-
-        if(_isChasingPlayer && Physics.Linecast(transform.position, _playerGameObject.transform.position, _wallLayerMask))
-        StopChase();
     }
 
     private void StartPatrol()
@@ -52,9 +50,9 @@ public class MobController : MonoBehaviour
 
     private void StartChase()
     {
-        _isChasingPlayer = true;
         StopPatrol();
-
+        
+        _isChasingPlayer = true;
         _navMeshAgent.speed = _agentSprintSpeed;
         _navMeshAgent.SetDestination(_playerGameObject.transform.position);
     }
@@ -67,10 +65,18 @@ public class MobController : MonoBehaviour
         _navMeshAgent.SetDestination(_tempPlayerPos.position);
     }
 
+    private bool IsPlayerInSight()
+    {
+        return !Physics.Linecast(transform.position, _playerGameObject.transform.position, _wallLayerMask);
+    }
+     
     private void OnTriggerStay(Collider other) 
     {
-        if(other.gameObject == _playerGameObject.gameObject && !Physics.Linecast(transform.position, _playerGameObject.transform.position, _wallLayerMask))
+        if(other.gameObject == _playerGameObject.gameObject && IsPlayerInSight())
         StartChase();
+        
+        if(_isChasingPlayer && !IsPlayerInSight())
+        StopChase();
     }
 
     private void OnTriggerExit(Collider other) 
@@ -87,6 +93,14 @@ public class MobController : MonoBehaviour
     private void MoveToWaypoint()
     {
         _navMeshAgent.SetDestination(_waypoints[_waypointIndex].position);
+    }
+
+    public void CatchPlayer()
+    {
+        _navMeshAgent.velocity = Vector3.zero;
+        _navMeshAgent.isStopped = true;
+        _smoothLookAt.StartRotating(_playerGameObject.transform);
+        OnPlayerCaught?.Invoke(this.transform);
     }
 
     private IEnumerator PatrolCoroutine()

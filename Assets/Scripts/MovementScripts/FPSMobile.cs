@@ -8,6 +8,9 @@ public class FPSMobile : MonoBehaviour
     public bool CanMove { get; private set; } = true;
     private bool _isSprinting => _canSprint && _sprintButton;
     private bool _shouldJump => _characterController.isGrounded;
+    
+    [SerializeField] private MobController _mobController;
+    [SerializeField] private SmoothLookAt _smoothLookAt;
 
     [Header("Functional Options")]
     [SerializeField] private bool _canSprint = true;
@@ -86,6 +89,23 @@ public class FPSMobile : MonoBehaviour
         _halfScreenWidth = Screen.width / 2;
         _currentStamina = _maxStamina;
     }
+
+    private void OnEnable()
+    {
+        if(!this.enabled)
+        return;
+
+        _mobController.OnPlayerCaught += OnPlayerCaught;
+    }
+
+    private void OnDisable()
+    {
+        if(!this.enabled)
+        return;
+
+        _mobController.OnPlayerCaught -= OnPlayerCaught;
+    }
+
     private void Update()
     {
         if (CanMove)
@@ -300,5 +320,12 @@ public class FPSMobile : MonoBehaviour
     public void SprintButton(bool _isPressed)
     {
         _sprintButton = _isPressed;
+    }
+
+    private void OnPlayerCaught(Transform mobTransform)
+    {
+        CanMove = false;
+        _smoothLookAt.StartRotating(mobTransform);
+        _smoothLookAt.StartCameraRotationg(_playerCamera, mobTransform);
     }
 }

@@ -9,6 +9,9 @@ public class FirstPersonController : MonoBehaviour
     private bool _isSprinting => _canSprint && Input.GetKey(_sprintKey);
     private bool _shouldJump => Input.GetKeyDown(_jumpKey) && _characterController.isGrounded;
 
+    [SerializeField] private MobController _mobController;
+    [SerializeField] private SmoothLookAt _smoothLookAt;
+
     [Header("Functional Options")]
     [SerializeField] private bool _canSprint = true;
     [SerializeField] private bool _useStamina = true;
@@ -80,6 +83,22 @@ public class FirstPersonController : MonoBehaviour
         Cursor.visible = false;
 
         _currentStamina = _maxStamina;
+    }
+
+    private void OnEnable()
+    {
+        if(!this.enabled)
+        return;
+
+        _mobController.OnPlayerCaught += OnPlayerCaught;
+    }
+
+    private void OnDisable()
+    {
+        if(!this.enabled)
+        return;
+
+        _mobController.OnPlayerCaught -= OnPlayerCaught;
     }
 
     private void Update()
@@ -223,5 +242,12 @@ public class FirstPersonController : MonoBehaviour
             _footstepAudioSource.PlayOneShot(_stepClips[UnityEngine.Random.Range(0, _stepClips.Length -1)]);
             _footstepTimer = _currentOffset;
         }
+    }
+
+    private void OnPlayerCaught(Transform mobTransform)
+    {
+        CanMove = false;
+        _smoothLookAt.StartRotating(mobTransform);
+        _smoothLookAt.StartCameraRotationg(_playerCamera.transform, mobTransform);
     }
 }
