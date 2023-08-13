@@ -71,7 +71,6 @@ GameObject:
   - component: {fileID: 7833541220906344548}
   - component: {fileID: 7833541220906344553}
   - component: {fileID: 7833541220906344550}
-  - component: {fileID: 7833541220906344551}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -144,19 +143,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7833541220906344551
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7833541220906344549}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.3001192, y: 7.245371, z: 7.0631986}
-  m_Center: {x: 0.0040005445, y: -2.1627092, z: -1.3617567}
 --- !u!1 &7833541221522597430
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,11 +279,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_audioClip: {fileID: 8300000, guid: b783e8bc7529c804ca6e5ed80a089f1f, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -393,7 +379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _smoothLookAt: {fileID: 2030030480}
   _navMeshAgent: {fileID: 7833541221522597433}
-  _audioSource: {fileID: 0}
+  _audioSource: {fileID: 4996737985133205810}
   _playerGameObject: {fileID: 0}
   _waypoints:
   - {fileID: 0}
@@ -501,6 +487,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: skibidi toile1t
       objectReference: {fileID: 0}
+    - target: {fileID: 7997351832304706054, guid: 6d3b1d73aefdd2d4b99e18b06e87eb33,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d3b1d73aefdd2d4b99e18b06e87eb33, type: 3}
 --- !u!4 &2123570083725437538 stripped
@@ -509,3 +500,29 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1941850509717835145}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2783451248547949303 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4876808054094043266, guid: 6d3b1d73aefdd2d4b99e18b06e87eb33,
+    type: 3}
+  m_PrefabInstance: {fileID: 1941850509717835145}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &740022194
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2783451248547949303}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cb75d8224bdfc864f940689d09337cf7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0

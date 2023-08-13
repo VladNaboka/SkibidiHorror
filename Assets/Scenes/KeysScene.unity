@@ -533,11 +533,6 @@ PrefabInstance:
       propertyPath: _playerGameObject
       value: 
       objectReference: {fileID: 411999678}
-    - target: {fileID: 7833541220906344551, guid: bf9144f3f5f83004896fb2eca54b9982,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7833541221522597430, guid: bf9144f3f5f83004896fb2eca54b9982,
         type: 3}
       propertyPath: m_Name
@@ -598,21 +593,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7833541221522597436, guid: bf9144f3f5f83004896fb2eca54b9982,
+    - target: {fileID: 7833541221522597437, guid: bf9144f3f5f83004896fb2eca54b9982,
         type: 3}
-      propertyPath: m_Size.x
-      value: 13.451826
-      objectReference: {fileID: 0}
-    - target: {fileID: 7833541221522597436, guid: bf9144f3f5f83004896fb2eca54b9982,
-        type: 3}
-      propertyPath: m_Center.x
-      value: 0.6658748
-      objectReference: {fileID: 0}
-    - target: {fileID: 7833541221522597436, guid: bf9144f3f5f83004896fb2eca54b9982,
-        type: 3}
-      propertyPath: m_Center.z
-      value: 8.494219
-      objectReference: {fileID: 0}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 740022194}
     - target: {fileID: 7833541221522597437, guid: bf9144f3f5f83004896fb2eca54b9982,
         type: 3}
       propertyPath: _playerGameObject
@@ -638,8 +623,7 @@ PrefabInstance:
       propertyPath: _waypoints.Array.data[3]
       value: 
       objectReference: {fileID: 440369841}
-    m_RemovedComponents:
-    - {fileID: 7833541220906344551, guid: bf9144f3f5f83004896fb2eca54b9982, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf9144f3f5f83004896fb2eca54b9982, type: 3}
 --- !u!1 &260593606
 GameObject:
@@ -1099,6 +1083,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a14fea870f1d93b41ae2c776ed38d365, type: 3}
+--- !u!95 &740022194 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 740022194, guid: bf9144f3f5f83004896fb2eca54b9982,
+    type: 3}
+  m_PrefabInstance: {fileID: 220180563}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &753940024
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1779,7 +1769,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-253412
+  m_Name: pb_Mesh-321716
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
