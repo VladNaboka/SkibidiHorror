@@ -10,7 +10,7 @@ public class MobController : MonoBehaviour
     [SerializeField] private SmoothLookAt _smoothLookAt;
     [SerializeField] private NavMeshAgent _navMeshAgent;
     [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private Animator anim;
+    [SerializeField] private Animator _anim;
     [SerializeField] private GameObject _playerGameObject;
     [SerializeField] private List<Transform> _waypoints = new List<Transform>();
     [SerializeField] private LayerMask _wallLayerMask;
@@ -63,7 +63,7 @@ public class MobController : MonoBehaviour
         {
             _audioSource.volume = 0.5f;
             _audioSource.Play();
-            anim.SetBool("skibidi", true);
+            _anim.SetBool("skibidi", true);
         }
     }
 

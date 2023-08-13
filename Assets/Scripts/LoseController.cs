@@ -19,5 +19,7 @@ public class LoseController : MonoBehaviour
     private void Lose(Transform transform)
     {
         loseMenu.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }
