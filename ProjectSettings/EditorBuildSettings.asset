@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/KeysScene.unity
     guid: 9acd5ebb6932d994dab772d494f177ef
+  - enabled: 1
+    path: Assets/Scenes/KeysMobile.unity
+    guid: 911f45f0750da6144b75949c428985de
   m_configObjects: {}

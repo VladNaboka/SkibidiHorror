@@ -9,12 +9,13 @@ public class KeysController : MonoBehaviour
 
     [SerializeField] private GameObject keyUI;
     [SerializeField] private GameObject canvasUI;
-    private float spacing = 120f;
+    [SerializeField] private float spacing = 120f;
 
     private GameObject[] objects;
     public int currentIndex = 0;
     public int spawnPosX;
     public int spawnPosY;
+    public Vector3 scaleObjects;
     private void Start()
     {
         keysPrefab = new List<Key>(FindObjectsOfType<Key>());
@@ -26,6 +27,7 @@ public class KeysController : MonoBehaviour
             //Vector3 spawnPosition = transform.position + new Vector3(1800 + i * spacing, 975f, 0f);
             Vector3 spawnPosition = transform.position + new Vector3(spawnPosX + i * spacing, spawnPosY, 0f);
             GameObject uiElement = Instantiate(keyUI, spawnPosition, Quaternion.identity);
+            uiElement.transform.localScale = scaleObjects;
             objects[i] = uiElement;
             uiElement.transform.SetParent(canvasUI.transform);
         }
