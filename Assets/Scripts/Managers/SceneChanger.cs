@@ -18,13 +18,17 @@ public class SceneChanger : MonoBehaviour
 
     public void ChangeScenePlatform()
     {
-        if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor)
+        if (SystemInfo.deviceType == DeviceType.Desktop)
         {
-            SceneManager.LoadScene("KeysScene", LoadSceneMode.Single);
+            SceneManager.LoadScene("KeysScene");
         }
-        if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+        else if (SystemInfo.deviceType == DeviceType.Handheld)
         {
-            SceneManager.LoadScene("KeysMobile", LoadSceneMode.Single);
+            SceneManager.LoadScene("KeysMobile");
         }
+        //else
+        //{
+        //    SceneManager.LoadScene("KeysScene");
+        //}
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using YG;
 
 public class CheckPlatform : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class CheckPlatform : MonoBehaviour
     private void Awake()
     {
         // Проверяем, какая платформа в данный момент
-        if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor)
+        if (SystemInfo.deviceType == DeviceType.Desktop)
         {
             // Включаем ПК контроллер и выключаем мобильный
             keysController.spawnPosX = 795;
@@ -21,7 +22,7 @@ public class CheckPlatform : MonoBehaviour
             pcController.enabled = true;
             mobileController.enabled = false;
         }
-        else if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+        else if (SystemInfo.deviceType == DeviceType.Handheld)
         {
             // Включаем мобильный контроллер и выключаем ПК
             keysController.spawnPosX = 1800;
@@ -30,11 +31,11 @@ public class CheckPlatform : MonoBehaviour
             pcController.enabled = false;
             mobileController.enabled = true;
         }
-        else
-        {
-            // Если платформа неизвестна, выключаем оба контроллера
-            pcController.enabled = false;
-            mobileController.enabled = false;
-        }
+        //else
+        //{
+        //    // Если платформа неизвестна, выключаем оба контроллера
+        //    pcController.enabled = false;
+        //    mobileController.enabled = false;
+        //}
     }
 }

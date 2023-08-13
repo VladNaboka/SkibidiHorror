@@ -101,6 +101,7 @@ public class MobController : MonoBehaviour
         _navMeshAgent.isStopped = true;
         _smoothLookAt.StartRotating(_playerGameObject.transform);
         OnPlayerCaught?.Invoke(this.transform);
+
     }
 
     private IEnumerator PatrolCoroutine()

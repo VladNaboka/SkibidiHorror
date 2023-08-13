@@ -535,9 +535,9 @@ MonoBehaviour:
   canvasUI: {fileID: 1098349361}
   spacing: 120
   currentIndex: 0
-  spawnPosX: 0
-  spawnPosY: 0
-  scaleObjects: {x: 0, y: 0, z: 0}
+  spawnPosX: 800
+  spawnPosY: 500
+  scaleObjects: {x: 1, y: 1, z: 1}
 --- !u!4 &585058728
 Transform:
   m_ObjectHideFlags: 0

@@ -293,7 +293,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _agentBaseSpeed: 5
-  _agentSprintSpeed: 7
+  _agentSprintSpeed: 9
   _patrolDelay: 2
 --- !u!65 &7833541221522597436
 BoxCollider:
@@ -306,8 +306,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 14.458133, y: 4.9235773, z: 16.028427}
-  m_Center: {x: 0.16271973, y: 1.4617879, z: 8.49422}
+  m_Size: {x: 13.451826, y: 4.9235773, z: 16.028427}
+  m_Center: {x: 0.6658748, y: 1.4617879, z: 8.494219}
 --- !u!114 &2030030480
 MonoBehaviour:
   m_ObjectHideFlags: 0
