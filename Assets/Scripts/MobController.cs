@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using DG.Tweening;
 
 public class MobController : MonoBehaviour
 {
     [SerializeField] private SmoothLookAt _smoothLookAt;
-    [SerializeField] private GameObject _playerGameObject;
     [SerializeField] private NavMeshAgent _navMeshAgent;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private GameObject _playerGameObject;
     [SerializeField] private List<Transform> _waypoints = new List<Transform>();
     [SerializeField] private LayerMask _wallLayerMask;
     [SerializeField] private float _agentBaseSpeed;
@@ -55,6 +57,12 @@ public class MobController : MonoBehaviour
         _isChasingPlayer = true;
         _navMeshAgent.speed = _agentSprintSpeed;
         _navMeshAgent.SetDestination(_playerGameObject.transform.position);
+
+        if(!_audioSource.isPlaying)
+        {
+            _audioSource.volume = 0.5f;
+            _audioSource.Play();
+        }
     }
 
     private void StopChase()
@@ -63,6 +71,9 @@ public class MobController : MonoBehaviour
         _navMeshAgent.speed = _agentBaseSpeed;
         _tempPlayerPos = _playerGameObject.transform;
         _navMeshAgent.SetDestination(_tempPlayerPos.position);
+
+        if(_audioSource.isPlaying)
+            _audioSource.DOFade(0f, 0.5f).OnComplete(() => _audioSource.Stop());
     }
 
     private bool IsPlayerInSight()

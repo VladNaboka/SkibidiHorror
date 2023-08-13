@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -398,6 +398,21 @@ PrefabInstance:
       propertyPath: _playerGameObject
       value: 
       objectReference: {fileID: 411999678}
+    - target: {fileID: 4996737985133205810, guid: bf9144f3f5f83004896fb2eca54b9982,
+        type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4996737985133205810, guid: bf9144f3f5f83004896fb2eca54b9982,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b783e8bc7529c804ca6e5ed80a089f1f, type: 3}
+    - target: {fileID: 4996737985133205810, guid: bf9144f3f5f83004896fb2eca54b9982,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7833541220906344551, guid: bf9144f3f5f83004896fb2eca54b9982,
         type: 3}
       propertyPath: m_Enabled
@@ -480,6 +495,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7833541221522597437, guid: bf9144f3f5f83004896fb2eca54b9982,
         type: 3}
+      propertyPath: _audioSource
+      value: 
+      objectReference: {fileID: 220180564}
+    - target: {fileID: 7833541221522597437, guid: bf9144f3f5f83004896fb2eca54b9982,
+        type: 3}
       propertyPath: _playerGameObject
       value: 
       objectReference: {fileID: 411999678}
@@ -506,6 +526,12 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7833541220906344551, guid: bf9144f3f5f83004896fb2eca54b9982, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bf9144f3f5f83004896fb2eca54b9982, type: 3}
+--- !u!82 &220180564 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 4996737985133205810, guid: bf9144f3f5f83004896fb2eca54b9982,
+    type: 3}
+  m_PrefabInstance: {fileID: 220180563}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &260593606
 GameObject:
   m_ObjectHideFlags: 0
@@ -1563,7 +1589,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-145410
+  m_Name: pb_Mesh-21664
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
