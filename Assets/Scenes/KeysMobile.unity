@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -152,9 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56101f66a460ef046b6186fd66f0574d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyUI: {fileID: 4837189839175986845, guid: 2900e968aa3d4da4690ec105c7ef7c0d, type: 3}
-  canvasUI: {fileID: 1098349361}
-  spacing: 60
+  keyUIget: {fileID: 0}
+  objects: []
   currentIndex: 0
   spawnPosX: 610
   spawnPosY: 430
@@ -243,6 +242,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 391023596, guid: bf9144f3f5f83004896fb2eca54b9982, type: 3}
+      propertyPath: _playerGameObject
+      value: 
+      objectReference: {fileID: 411999678}
     - target: {fileID: 7833541221522597430, guid: bf9144f3f5f83004896fb2eca54b9982,
         type: 3}
       propertyPath: m_Name
@@ -847,14 +850,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2070451459}
     - target: {fileID: 1613692352, guid: ab56871a8ff0fe4468accbf3e12bcb4b, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1613692352, guid: ab56871a8ff0fe4468accbf3e12bcb4b, type: 3}
-      propertyPath: _smoothLookAt
-      value: 
-      objectReference: {fileID: 1353230240}
-    - target: {fileID: 1613692352, guid: ab56871a8ff0fe4468accbf3e12bcb4b, type: 3}
       propertyPath: _mobController
       value: 
       objectReference: {fileID: 1473931428}
@@ -863,21 +858,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 3940926519853057442, guid: ab56871a8ff0fe4468accbf3e12bcb4b,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 3940926519853057452, guid: ab56871a8ff0fe4468accbf3e12bcb4b,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3940926519853057452, guid: ab56871a8ff0fe4468accbf3e12bcb4b,
-        type: 3}
-      propertyPath: _smoothLookAt
-      value: 
-      objectReference: {fileID: 1353230240}
     - target: {fileID: 3940926519853057452, guid: ab56871a8ff0fe4468accbf3e12bcb4b,
         type: 3}
       propertyPath: _mobController
@@ -1120,19 +1100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85cb163cb8afe844ba36e89aba1173cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1353230240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 411999678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5df682f48985d54e97be533181a49aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 1
 --- !u!114 &1473931428 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7833541221522597437, guid: bf9144f3f5f83004896fb2eca54b9982,
@@ -1151,7 +1118,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-145410
+  m_Name: pb_Mesh-37786
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

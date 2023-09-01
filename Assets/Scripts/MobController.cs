@@ -58,12 +58,12 @@ public class MobController : MonoBehaviour
         _isChasingPlayer = true;
         _navMeshAgent.speed = _agentSprintSpeed;
         _navMeshAgent.SetDestination(_playerGameObject.transform.position);
+        _anim.SetTrigger("Run");
 
         if(!_audioSource.isPlaying)
         {
             _audioSource.volume = 0.5f;
             _audioSource.Play();
-            _anim.SetBool("skibidi", true);
         }
     }
 
@@ -106,6 +106,7 @@ public class MobController : MonoBehaviour
     private void MoveToWaypoint()
     {
         _navMeshAgent.SetDestination(_waypoints[_waypointIndex].position);
+        _anim.SetTrigger("Walk");
     }
 
     public void CatchPlayer()
@@ -114,12 +115,13 @@ public class MobController : MonoBehaviour
         _navMeshAgent.isStopped = true;
         _smoothLookAt.StartRotating(_playerGameObject.transform);
         OnPlayerCaught?.Invoke(this.transform);
-
+        _anim.SetTrigger("Jumpscare");
     }
 
     private IEnumerator PatrolCoroutine()
     {
         _isPatrolCoroutineRunning = true;
+        _anim.SetTrigger("Idle");
         yield return new WaitForSeconds(_patrolDelay);
         DefineNextWaypoint();
         MoveToWaypoint();

@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 3940926519853057452}
   - component: {fileID: 1613692351}
   - component: {fileID: 1613692352}
+  - component: {fileID: 1353230240}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,11 +114,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3940926519853057442}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0baf3c4efb7c034789156753a500e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mobController: {fileID: 0}
+  _smoothLookAt: {fileID: 1353230240}
   _canSprint: 1
   _useStamina: 1
   _canJump: 1
@@ -253,11 +256,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3940926519853057442}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85cb163cb8afe844ba36e89aba1173cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mobController: {fileID: 0}
+  _smoothLookAt: {fileID: 1353230240}
   _canSprint: 1
   _useStamina: 1
   _canJump: 1
@@ -288,6 +293,19 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 70f99d0bbb25e2049afb836cd02b6d34, type: 3}
   - {fileID: 8300000, guid: 3939d9f1099dea84f8ae879ff7808500, type: 3}
   - {fileID: 8300000, guid: f108f0982b4685842ad3658721902443, type: 3}
+--- !u!114 &1353230240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3940926519853057442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5df682f48985d54e97be533181a49aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 1
 --- !u!1 &3940926520867989798
 GameObject:
   m_ObjectHideFlags: 0
